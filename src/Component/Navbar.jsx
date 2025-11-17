@@ -1,8 +1,37 @@
-import React from "react";
+import React, { useContext } from "react";
 import Logo from "./Logo";
 import { Link, NavLink } from "react-router";
+import { AuthContext } from "../firebase/FirebaseAuthProvider";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
+  const { user, SignOut } = useContext(AuthContext);
+  const handelLogout = () => {
+    SignOut()
+      .then(() => {
+        console.log("User logged out");
+
+        // SUCCESS ALERT
+        Swal.fire({
+          title: "Logged Out",
+          text: "You have been logged out successfully.",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+
+        // ERROR ALERT
+        Swal.fire({
+          title: "Logout Failed",
+          text: error.message,
+          icon: "error",
+        });
+      });
+  };
+
   const link = (
     <>
       <li>
@@ -85,7 +114,7 @@ const Navbar = () => {
             {link}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">
+        <a className="btn btn-ghost text-xl hidden md:flex">
           <Logo></Logo>
         </a>
       </div>
@@ -93,12 +122,28 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{link}</ul>
       </div>
       <div className="navbar-end mr-4 gap-3">
-        <Link to="/login" className="btn btn-outline">
-          Login
-        </Link>
-        <button className="btn bg-[#CAEB66] rounded-lg font-bold">
-          Be a rider
-        </button>
+        {user ? (
+          <div className="navbar-end mr-4 gap-3">
+            <button
+              onClick={handelLogout}
+              className="btn text-white bg-red-600"
+            >
+              LogOut
+            </button>
+          </div>
+        ) : (
+          <div className="navbar-end mr-4 gap-3">
+            <Link to="/login" className="btn btn-outline">
+              Login
+            </Link>
+            <Link
+              to="/register"
+              className="btn bg-[#CAEB66] rounded-lg font-bold"
+            >
+              Sign Up
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

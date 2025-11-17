@@ -3,6 +3,9 @@ import MainLayouts from "../Layouts/MainLayouts";
 import Home from "../Component/Home";
 import ErrorPage from "../Component/ErrorPage";
 import Covarage from "../Component/Covarage";
+import AuthLayouts from "../Layouts/AuthLayouts";
+import Login from "../Component/Login";
+import Register from "../Component/Register";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +22,20 @@ const router = createBrowserRouter([
         element: <Covarage></Covarage>,
         loader: () =>
           fetch("/public/serviceCenter.json.json").then((res) => res.json()),
+      },
+    ],
+  },
+  {
+    path: "/",
+    Component: AuthLayouts,
+    children: [
+      {
+        path: "/login",
+        Component: Login,
+      },
+      {
+        path: "/register",
+        Component: Register,
       },
     ],
   },
