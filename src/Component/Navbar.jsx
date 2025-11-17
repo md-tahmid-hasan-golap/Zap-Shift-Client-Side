@@ -6,19 +6,54 @@ const Navbar = () => {
   const link = (
     <>
       <li>
-        <NavLink to="/services">Services</NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "text-[#CAEB66] bg-black font-bold mr-2" : "mr-2"
+          }
+          to="/"
+        >
+          Home
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/coverage">Coverage</NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "text-[#CAEB66] bg-black font-bold mr-2" : "mr-2"
+          }
+          to="/covarage"
+        >
+          Coverage
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/AboutUs">About Us</NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "text-[#CAEB66] bg-black font-bold mr-2" : "mr-2"
+          }
+          to="/AboutUs"
+        >
+          About Us
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/pricing">Pricing</NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "text-[#CAEB66] bg-black font-bold mr-2" : "mr-2"
+          }
+          to="/pricing"
+        >
+          Pricing
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/beaRider">Be a Rider</NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "text-[#CAEB66] bg-black font-bold mr-2" : "mr-2"
+          }
+          to="/beaRider"
+        >
+          Be a Rider
+        </NavLink>
       </li>
     </>
   );

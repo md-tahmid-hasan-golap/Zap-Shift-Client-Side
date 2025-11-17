@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { Autoplay, EffectCoverflow, Pagination } from "swiper/modules";
 import ReviewCard from "./ReviewCard";
+import costomar from "../../src/assets/banner/customer-top.png";
 
 const Reviews = ({ riviewsPromised }) => {
   const Reviews = use(riviewsPromised);
@@ -10,7 +11,8 @@ const Reviews = ({ riviewsPromised }) => {
   return (
     <div className="my-7">
       <div className="flex flex-col items-center justify-center text-center p-6 mx-auto max-w-lg">
-        <h2 className="text-2xl font-bold mb-4">
+        <img className="mb-5" src={costomar} alt="" />
+        <h2 className="text-2xl md:text-3xl font-bold mb-4">
           What our customers are saying
         </h2>
         <p className="text-gray-700 mb-5">
