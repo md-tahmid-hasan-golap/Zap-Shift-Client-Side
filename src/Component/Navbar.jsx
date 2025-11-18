@@ -114,9 +114,9 @@ const Navbar = () => {
             {link}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl hidden md:flex">
+        <p className="btn btn-ghost text-xl hidden md:flex">
           <Logo></Logo>
-        </a>
+        </p>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{link}</ul>
@@ -124,6 +124,11 @@ const Navbar = () => {
       <div className="navbar-end mr-4 gap-3">
         {user ? (
           <div className="navbar-end mr-4 gap-3">
+            <img
+              className="border-2 rounded-full h-12 w-12"
+              src={user?.photoURL}
+              alt=""
+            />
             <button
               onClick={handelLogout}
               className="btn text-white bg-red-600"

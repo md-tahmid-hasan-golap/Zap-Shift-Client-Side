@@ -4,6 +4,7 @@ import { AuthContext } from "../firebase/FirebaseAuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import Swal from "sweetalert2";
+import { updateProfile } from "firebase/auth";
 
 const Register = () => {
   const { registerUser, signInWithGoogle } = useContext(AuthContext);
@@ -15,26 +16,38 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  const handelRegistation = (data) => {
-    registerUser(data.email, data.password)
+  const handelRegistation = async (data) => {
+    const name = data.name;
+    const email = data.email;
+    const password = data.password;
+    const photo = data.photo[0];
+
+    // Photo URL (temporary local blob)
+    const photoURL = photo ? URL.createObjectURL(photo) : "";
+
+    registerUser(email, password)
       .then((result) => {
-        console.log(result);
+        const user = result.user;
 
-        // SUCCESS ALERT
-        Swal.fire({
-          title: "Registration Successful!",
-          text: "Welcome to our website ❤️",
-          icon: "success",
-          timer: 2000,
-          showConfirmButton: false,
-        });
+        // Update Profile
+        updateProfile(user, {
+          displayName: name,
+          photoURL: photoURL,
+        })
+          .then(() => {
+            Swal.fire({
+              title: "Registration Successful!",
+              text: "Welcome to our website ❤️",
+              icon: "success",
+              timer: 2000,
+              showConfirmButton: false,
+            });
 
-        navigate("/");
+            navigate("/");
+          })
+          .catch((err) => console.log(err));
       })
       .catch((error) => {
-        console.log(error);
-
-        // ERROR ALERT
         Swal.fire({
           title: "Registration Failed!",
           text: error.message,
@@ -45,9 +58,7 @@ const Register = () => {
 
   const handelsignInWithGoogle = () => {
     signInWithGoogle()
-      .then((result) => {
-        console.log(result);
-
+      .then(() => {
         Swal.fire({
           title: "Login Successful!",
           text: "Logged in with Google",
@@ -59,8 +70,6 @@ const Register = () => {
         navigate("/");
       })
       .catch((error) => {
-        console.log(error);
-
         Swal.fire({
           title: "Login Failed!",
           text: error.message,
@@ -77,6 +86,33 @@ const Register = () => {
         </h1>
 
         <form onSubmit={handleSubmit(handelRegistation)} className="space-y-4">
+          {/* Name */}
+          <div>
+            <label className="label font-medium">Name</label>
+            <input
+              type="text"
+              {...register("name", { required: true })}
+              className="input input-bordered w-full"
+              placeholder="Enter your Name"
+            />
+            {errors.name && (
+              <p className="text-red-500 text-sm mt-1">Name is required</p>
+            )}
+          </div>
+
+          {/* Photo */}
+          <div>
+            <label className="label font-medium">Photo</label>
+            <input
+              type="file"
+              {...register("photo", { required: true })}
+              className="file-input input-bordered w-full"
+            />
+            {errors.photo && (
+              <p className="text-red-500 text-sm mt-1">Photo is required</p>
+            )}
+          </div>
+
           {/* Email */}
           <div>
             <label className="label font-medium">Email</label>
@@ -110,10 +146,9 @@ const Register = () => {
             )}
           </div>
 
-          {/* Register Button */}
           <button className="btn btn-neutral w-full mt-2">Register</button>
 
-          {/* OR Divider */}
+          {/* OR */}
           <div className="flex items-center gap-4 my-4">
             <div className="h-[1px] bg-gray-300 w-full"></div>
             <span className="text-gray-500 font-medium">OR</span>
@@ -130,7 +165,6 @@ const Register = () => {
           </button>
         </form>
 
-        {/* Already have an account */}
         <p className="text-center mt-4 text-sm">
           Already have an account?{" "}
           <Link

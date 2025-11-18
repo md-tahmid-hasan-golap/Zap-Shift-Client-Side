@@ -1,7 +1,7 @@
 import React from "react";
 
 const ReviewCard = ({ reviewss }) => {
-  console.log(reviewss);
+  // console.log(reviewss);
   const { user_photoURL, review, role, userName } = reviewss;
   return (
     <div className="bg-white rounded-xl shadow-lg p-6 max-w-sm mx-auto">
