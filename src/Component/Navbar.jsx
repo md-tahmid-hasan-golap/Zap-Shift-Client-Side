@@ -59,7 +59,17 @@ const Navbar = () => {
           className={({ isActive }) =>
             isActive ? "text-[#CAEB66] bg-black font-bold mr-2" : "mr-2"
           }
-          to="/AboutUs"
+          to="/sendParcel"
+        >
+          Send Parcel
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "text-[#CAEB66] bg-black font-bold mr-2" : "mr-2"
+          }
+          to="/aboutUs"
         >
           About Us
         </NavLink>

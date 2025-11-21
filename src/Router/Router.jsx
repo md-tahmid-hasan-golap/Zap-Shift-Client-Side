@@ -6,6 +6,9 @@ import Covarage from "../Component/Covarage";
 import AuthLayouts from "../Layouts/AuthLayouts";
 import Login from "../Component/Login";
 import Register from "../Component/Register";
+import AboutUs from "../Component/AboutUs";
+import SendAparcel from "../Component/SendAparcel";
+import PrivateRouter from "./PrivateRouter";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +25,18 @@ const router = createBrowserRouter([
         element: <Covarage></Covarage>,
         loader: () =>
           fetch("/public/serviceCenter.json.json").then((res) => res.json()),
+      },
+      {
+        path: "/aboutUs",
+        Component: AboutUs,
+      },
+      {
+        path: "/sendParcel",
+        element: (
+          <PrivateRouter>
+            <SendAparcel></SendAparcel>
+          </PrivateRouter>
+        ),
       },
     ],
   },
