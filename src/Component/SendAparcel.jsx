@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useLoaderData } from "react-router";
 
 const SendAparcel = () => {
   const {
@@ -7,6 +8,10 @@ const SendAparcel = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const serviceSenters = useLoaderData();
+  const regions = serviceSenters.map((c) => c.region);
+  const rigion = [...new Set(regions)];
+  console.log(rigion);
 
   const handleSendParcel = (data) => {
     console.log(data);
@@ -114,6 +119,19 @@ const SendAparcel = () => {
                 />
               </fieldset>
               <fieldset className="fieldset">
+                <legend className="fieldset-legend">Sender Regions</legend>
+                <select defaultValue="Pick a Region" className="select">
+                  <option disabled={true}>Pick a Region</option>
+                  {rigion.map((r, i) => (
+                    <option key={i} value={r}>
+                      {r}
+                    </option>
+                  ))}
+                </select>
+                <span className="label">Optional</span>
+              </fieldset>
+              {/* sender distric */}
+              <fieldset className="fieldset">
                 <label className="label font-bold text-black text-sm">
                   Sender District
                 </label>
@@ -122,6 +140,17 @@ const SendAparcel = () => {
                   {...register("senderDistrict")}
                   className="input w-full"
                   placeholder="Sender  District"
+                />
+              </fieldset>
+              <fieldset className="fieldset">
+                <label className="label font-bold text-black text-sm">
+                  Sender Email
+                </label>
+                <input
+                  type="email"
+                  {...register("SenderEmail")}
+                  className="input w-full"
+                  placeholder="Sender  Email"
                 />
               </fieldset>
             </div>
@@ -172,6 +201,17 @@ const SendAparcel = () => {
                   {...register("ReceverDistrict")}
                   className="input w-full"
                   placeholder="Recever  District"
+                />
+              </fieldset>
+              <fieldset className="fieldset">
+                <label className="label font-bold text-black text-sm">
+                  Recever Email
+                </label>
+                <input
+                  type="email"
+                  {...register("ReceverEmail")}
+                  className="input w-full"
+                  placeholder=" Recever Email"
                 />
               </fieldset>
             </div>

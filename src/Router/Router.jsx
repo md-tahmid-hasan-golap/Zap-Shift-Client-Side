@@ -37,6 +37,8 @@ const router = createBrowserRouter([
             <SendAparcel></SendAparcel>
           </PrivateRouter>
         ),
+        loader: () =>
+          fetch("/public/serviceCenter.json.json").then((res) => res.json()),
       },
     ],
   },
