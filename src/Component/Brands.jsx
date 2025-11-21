@@ -19,6 +19,7 @@ const brandsLogos = [
   amazon6,
   amazon7,
 ];
+//
 
 const Brands = () => {
   return (
